@@ -1,0 +1,5 @@
+---
+- name: Restart systemd
+  service:
+    name: mattermost-hubot
+    state: restarted

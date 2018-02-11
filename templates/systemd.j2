@@ -1,0 +1,13 @@
+[Unit]
+Description=Mattermost Hubot
+
+[Service]
+Type=simple
+User={{ mattermost_hubot_user }}
+Group={{ mattermost_hubot_group }}
+EnvironmentFile=/etc/default/hubot
+ExecStart={{ mattermost_hubot_install_path }}/bin/hubot -a matteruser
+WorkingDirectory={{ mattermost_hubot_install_path }}
+
+[Install]
+WantedBy=multi-user.target

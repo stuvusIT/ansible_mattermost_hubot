@@ -1,0 +1,23 @@
+---
+mattermost_hubot_user: www-data
+mattermost_hubot_group: www-data
+mattermost_hubot_install_path: /var/www/mattermost-hubot
+mattermost_hubot_websocket_port: 443
+mattermost_hubot_tls_verify: True
+mattermost_hubot_use_tls: True
+mattermost_hubot_log_level: info
+mattermost_hubot_reply: True
+mattermost_hubot_name: James
+mattermost_hubot_description: "Your friendly and heplfull bot"
+mattermost_hubot_plugins:
+  - hubot-diagnostics
+  - hubot-help
+  - hubot-heroku-keepalive
+  - hubot-google-images
+  - hubot-google-translate
+  - hubot-pugme
+  - hubot-maps
+  - hubot-redis-brain
+  - hubot-rules
+  - hubot-shipit
+
