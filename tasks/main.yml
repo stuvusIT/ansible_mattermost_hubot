@@ -1,0 +1,73 @@
+---
+- name: Install "npm"
+  apt:
+    name: npm
+    update_cache: yes
+  with_items:
+    - npm
+    - nodejs-legacy
+    - nodejs
+
+- name: Create hubot install directory
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ mattermost_hubot_user }}"
+    group: "{{ mattermost_hubot_group }}"
+  with_items:
+    - "{{ mattermost_hubot_install_path }}"
+    - "{{ mattermost_hubot_install_path }}/.npm"
+
+# We are using shell and sudo since npm does not respect the user under which a process should run
+- name: Install "yo" and "generator-hubot" node.js package
+  environment: "{{ mattermost_hubot_enviroment_vars }}"
+  shell: "sudo -E -u {{ mattermost_hubot_user }} npm install {{ item }}"
+  changed_when: False
+  args:
+    chdir: "{{ mattermost_hubot_install_path }}"
+  with_items:
+    - yo
+    - generator-hubot
+
+- name: Init hubot
+  shell: "sudo -u {{ mattermost_hubot_user }} -E yo hubot --adapter matteruser --owner {{ mattermost_hubot_owner }} --name {{ mattermost_hubot_name }} --description '{{ mattermost_hubot_description }}'"
+  environment: "{{ mattermost_hubot_enviroment_vars }}"
+  args:
+    chdir: "{{ mattermost_hubot_install_path }}"
+    creates: "{{ mattermost_hubot_install_path }}/scripts"
+
+- name: Delete hubot-scripts.json
+  file:
+    state: absent
+    path: "{{ mattermost_hubot_install_path }}/hubot-scripts.json"
+
+- name: Place systemd service file
+  template:
+    src: systemd.j2
+    dest: /etc/systemd/system/mattermost-hubot.service
+  notify:
+    - Reload systemd daemon
+
+- name: Place enviroment file
+  template:
+    src: hubot_enviroment
+    dest: /etc/default/hubot
+    mode: 0600
+    owner: root
+    group: root
+
+- name: Install hubot plugins
+  environment: "{{ mattermost_hubot_enviroment_vars }}"
+  shell: "sudo -E -u {{ mattermost_hubot_user }} npm install {{ item }}"
+  changed_when: False
+  args:
+    chdir: "{{ mattermost_hubot_install_path }}"
+  with_items: "{{ mattermost_hubot_plugins }}"
+
+- name: Place plugin file service file
+  template:
+    src: external-scripts.json.j2
+    dest: "{{ mattermost_hubot_install_path }}/external-scripts.json"
+  notify:
+    - Restart mattermost-hubot service
+

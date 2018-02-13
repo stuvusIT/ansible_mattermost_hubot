@@ -1,0 +1,21 @@
+MATTERMOST_HOST={{ mattermost_hubot_mattermost_host }}
+MATTERMOST_GROUP={{ mattermost_hubot_mattermost_team }}
+MATTERMOST_USER={{ mattermost_hubot_mattermost_user }}
+MATTERMOST_PASSWORD={{ mattermost_hubot_mattermost_password }}
+MATTERMOST_WSS_PORT={{ mattermost_hubot_websocket_port }}
+{% if mattermost_hubot_http_port is defined %}
+MATTERMOST_HTTP_PORT={{ mattermost_hubot_http_port }}
+{% endif %}
+MATTERMOST_TLS_VERIFY={{ mattermost_hubot_tls_verify }}
+MATTERMOST_USE_TLS={{ mattermost_hubot_use_tls }}
+MATTERMOST_LOG_LEVEL={{ mattermost_hubot_log_level }}
+MATTERMOST_REPLY={{ mattermost_hubot_reply }}
+{% if mattermost_hubot_ignore_users is defined %}
+MATTERMOST_IGNORE_USERS={{ mattermost_hubot_ignore_users }}
+{% endif %}
+HOME={{ mattermost_hubot_install_path }}
+{% for enviroment_item in mattermost_hubot_enviroment %}
+{% for enviroment_key, enviroment_value in  enviroment_item.items()%}
+{{ enviroment_key }}={{ enviroment_value }}
+{% endfor %}
+{% endfor %}
