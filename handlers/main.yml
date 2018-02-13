@@ -3,10 +3,8 @@
   service:
     name: mattermost-hubot
     state: restarted
-
-- name: Reload systemd daemon and enable mattermost-hubot service
-  systemd:
-    name: mattermost-hubot
-    state: started
     enabled: True
-    daemon_reload: True
+
+- name: Reload systemd daemon
+  systemd:
+    daemon_reload: yes

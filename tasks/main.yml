@@ -45,8 +45,8 @@
   template:
     src: systemd.j2
     dest: /etc/systemd/system/mattermost-hubot.service
-  notfiy:
-    - Reload systemd daemon and enable mattermost-hubot service
+  notify:
+    - Reload systemd daemon
 
 - name: Place enviroment file
   template:
