@@ -19,6 +19,6 @@ galaxy_info:
   galaxy_tags:
     - hubot
     - mattermost
-    - personal-assisten
+    - personal-assistant
 
 dependencies: []

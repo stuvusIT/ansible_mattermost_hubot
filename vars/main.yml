@@ -1,0 +1,8 @@
+---
+mattermost_hubot_enviroment_vars:
+  HOME: "{{ mattermost_hubot_install_path }}"
+  npm_config_user: "{{ mattermost_hubot_user }}"
+  npm_config_group: "{{ mattermost_hubot_group }}"
+  npm_config_init_module: "{{ mattermost_hubot_install_path }}/.npm-init.js"
+  npm_config_userconfig: "{{ mattermost_hubot_install_path }}/.npmrc"
+  npm_config_cache: "{{ mattermost_hubot_install_path }}/.npm"

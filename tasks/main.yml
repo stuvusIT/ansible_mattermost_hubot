@@ -20,12 +20,7 @@
 
 # We are using shell and sudo since npm does not respect the user under which a process should run
 - name: Install "yo" and "generator-hubot" node.js package
-  environment:
-    HOME: "{{ mattermost_hubot_install_path }}"
-    npm_config_user: "{{ mattermost_hubot_user }}"
-    npm_config_init_module: "{{ mattermost_hubot_install_path }}/.npm-init.js"
-    npm_config_userconfig: "{{ mattermost_hubot_install_path }}/.npmrc"
-    npm_config_cache: "{{ mattermost_hubot_install_path }}/.npm"
+  environment: "{{ mattermost_hubot_enviroment_vars }}"
   shell: "sudo -E -u {{ mattermost_hubot_user }} npm install {{ item }}"
   changed_when: False
   args:
@@ -35,14 +30,8 @@
     - generator-hubot
 
 - name: Init hubot
-  become: True
   shell: "sudo -u {{ mattermost_hubot_user }} -E yo hubot --adapter matteruser --owner {{ mattermost_hubot_owner }} --name {{ mattermost_hubot_name }} --description '{{ mattermost_hubot_description }}'"
-  environment:
-    HOME: "{{ mattermost_hubot_install_path }}"
-    npm_config_user: "{{ mattermost_hubot_user }}"
-    npm_config_init_module: "{{ mattermost_hubot_install_path }}/.npm-init.js"
-    npm_config_userconfig: "{{ mattermost_hubot_install_path }}/.npmrc"
-    npm_config_cache: "{{ mattermost_hubot_install_path }}/.npm"
+  environment: "{{ mattermost_hubot_enviroment_vars }}"
   args:
     chdir: "{{ mattermost_hubot_install_path }}"
     creates: "{{ mattermost_hubot_install_path }}/scripts"
@@ -56,25 +45,19 @@
   template:
     src: systemd.j2
     dest: /etc/systemd/system/mattermost-hubot.service
+  notfiy:
+    - Reload systemd daemon and enable mattermost-hubot service
 
 - name: Place enviroment file
   template:
     src: hubot_enviroment
-    dest: "/etc/default/hubot"
+    dest: /etc/default/hubot
     mode: 0600
-    owner: "root"
-    group: "root"
+    owner: root
+    group: root
 
 - name: Install hubot plugins
-  become: True
-  become_user: "{{ mattermost_hubot_user }}"
-  environment:
-    HOME: "{{ mattermost_hubot_install_path }}"
-    npm_config_user: "{{ mattermost_hubot_user }}"
-    npm_config_group: "{{ mattermost_hubot_group }}"
-    npm_config_init_module: "{{ mattermost_hubot_install_path }}/.npm-init.js"
-    npm_config_userconfig: "{{ mattermost_hubot_install_path }}/.npmrc"
-    npm_config_cache: "{{ mattermost_hubot_install_path }}/.npm"
+  environment: "{{ mattermost_hubot_enviroment_vars }}"
   shell: "sudo -E -u {{ mattermost_hubot_user }} npm install {{ item }}"
   changed_when: False
   args:
@@ -86,12 +69,5 @@
     src: external-scripts.json.j2
     dest: "{{ mattermost_hubot_install_path }}/external-scripts.json"
   notify:
-    - Restart systemd
-
-- name: Enable and start the systemd service
-  systemd:
-    name: mattermost-hubot
-    state: started
-    enabled: True
-    daemon_reload: True
+    - Restart mattermost-hubot service
 
