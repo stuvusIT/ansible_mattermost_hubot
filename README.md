@@ -27,7 +27,7 @@ A Debian-based system
 | `mattermost_hubot_owner`               | :heavy_check_mark:              | Mail of person that runs this bot                                                                         |
 | `mattermost_hubot_name`                | `James`                         | Name under which the bot should react                                                                     |
 | `mattermost_hubot_description`         | `Your friendly and helpful bot` | Description which the bot should use                                                                      |
-| `mattermost_hubot_enviroment`          | `{}`                             | Directory to set more enviroment variables. The key is the variable name and the value the value          |
+| `mattermost_hubot_enviroment`          | `{}`                            | Dictionary to set more enviroment variables. The key is the variable name and the value the value         |
 | `mattermost_hubot_plugins`             | See below                       | List of plugins to be installed. Name of the package is the same name used in the npm package repository. |
 
 ### `mattermost_hubot_plugins` Default
