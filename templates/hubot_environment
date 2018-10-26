@@ -14,8 +14,8 @@ MATTERMOST_REPLY={{ mattermost_hubot_reply }}
 MATTERMOST_IGNORE_USERS={{ mattermost_hubot_ignore_users }}
 {% endif %}
 HOME={{ mattermost_hubot_install_path }}
-{% for enviroment_item in mattermost_hubot_enviroment %}
-{% for enviroment_key, enviroment_value in  enviroment_item.items()%}
-{{ enviroment_key }}={{ enviroment_value }}
+{% for environment_item in mattermost_hubot_environment %}
+{% for environment_key, environment_value in  environment_item.items()%}
+{{ environment_key }}={{ enviroment_value }}
 {% endfor %}
 {% endfor %}
