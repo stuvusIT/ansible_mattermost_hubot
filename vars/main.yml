@@ -1,5 +1,5 @@
 ---
-mattermost_hubot_enviroment_vars:
+mattermost_hubot_environment_vars:
   HOME: "{{ mattermost_hubot_install_path }}"
   npm_config_user: "{{ mattermost_hubot_user }}"
   npm_config_group: "{{ mattermost_hubot_group }}"
