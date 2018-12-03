@@ -19,8 +19,9 @@
 # We are using shell and sudo since npm does not respect the user under which a process should run
 - name: Install yo and generator-hubot packages
   environment: "{{ mattermost_hubot_enviroment_vars }}"
-  shell: "sudo -E -u {{ mattermost_hubot_user }} npm install {{ item }}"
+  shell: "npm install {{ item }}"
   changed_when: False
+  become_user: "{{ mattermost_hubot_user }}"
   args:
     chdir: "{{ mattermost_hubot_install_path }}"
   with_items:
@@ -56,7 +57,8 @@
 
 - name: Install hubot plugins
   environment: "{{ mattermost_hubot_enviroment_vars }}"
-  shell: "sudo -E -u {{ mattermost_hubot_user }} npm install {{ item }}"
+  shell: "npm install {{ item }}"
+  become_user: "{{ mattermost_hubot_user }}"
   changed_when: False
   args:
     chdir: "{{ mattermost_hubot_install_path }}"
