@@ -1,11 +1,10 @@
 ---
 - name: Install npm
   apt:
-    name: npm
-  with_items:
-    - npm
-    - nodejs-legacy
-    - nodejs
+    name:
+      - npm
+      - nodejs-legacy
+      - nodejs
 
 - name: Create hubot install directory
   file:
