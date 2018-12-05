@@ -18,7 +18,7 @@
 
 # We are using shell and sudo since npm does not respect the user under which a process should run
 - name: Install yo and generator-hubot packages
-  environment: "{{ mattermost_hubot_enviroment_vars }}"
+  environment: "{{ mattermost_hubot_environment_vars }}"
   shell: "npm install {{ item }}"
   changed_when: False
   become_user: "{{ mattermost_hubot_user }}"
@@ -30,7 +30,7 @@
 
 - name: Init hubot
   shell: "sudo -u {{ mattermost_hubot_user }} -E yo hubot --adapter matteruser --owner {{ mattermost_hubot_owner }} --name {{ mattermost_hubot_name }} --description '{{ mattermost_hubot_description }}'"
-  environment: "{{ mattermost_hubot_enviroment_vars }}"
+  environment: "{{ mattermost_hubot_environment_vars }}"
   args:
     chdir: "{{ mattermost_hubot_install_path }}"
     creates: "{{ mattermost_hubot_install_path }}/scripts"
@@ -47,16 +47,16 @@
   notify:
     - Reload systemd daemon
 
-- name: Place enviroment file
+- name: Place environment file
   template:
-    src: hubot_enviroment
+    src: hubot_environment
     dest: /etc/default/hubot
     mode: 0600
     owner: root
     group: root
 
 - name: Install hubot plugins
-  environment: "{{ mattermost_hubot_enviroment_vars }}"
+  environment: "{{ mattermost_hubot_environment_vars }}"
   shell: "npm install {{ item }}"
   become_user: "{{ mattermost_hubot_user }}"
   changed_when: False
