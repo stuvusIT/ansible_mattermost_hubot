@@ -27,7 +27,7 @@ A Debian-based system
 | `mattermost_hubot_owner`               | :heavy_check_mark:              | Mail of person that runs this bot                                                                         |
 | `mattermost_hubot_name`                | `James`                         | Name under which the bot should react                                                                     |
 | `mattermost_hubot_description`         | `Your friendly and helpful bot` | Description which the bot should use                                                                      |
-| `mattermost_hubot_enviroment`          | `{}`                            | Dictionary to set more enviroment variables. The key is the variable name and the value the value         |
+| `mattermost_hubot_environment`          | `{}`                            | Dictionary to set more enviroment variables. The key is the variable name and the value the value         |
 | `mattermost_hubot_plugins`             | See below                       | List of plugins to be installed. Name of the package is the same name used in the npm package repository. |
 
 ### `mattermost_hubot_plugins` Default
@@ -54,7 +54,7 @@ Per default following packages are installed:
     mattermost_hubot_mattermost_password: yourpassword
     mattermost_hubot_mattermost_host: url.to.your.mattermost.instance.com
     mattermost_hubot_owner: your@mailaddress.com
-    mattermost_hubot_enviroment:
+    mattermost_hubot_environment:
       - REDIS_URL: redis://:password@192.168.0.1:16379/prefix 
     mattermost_hubot_plugins:
       - hubot-diagnostics
