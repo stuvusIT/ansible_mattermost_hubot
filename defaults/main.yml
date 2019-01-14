@@ -9,7 +9,7 @@ mattermost_hubot_log_level: info
 mattermost_hubot_reply: True
 mattermost_hubot_name: James
 mattermost_hubot_description: "Your friendly and heplful bot"
-mattermost_hubot_enviroment: {}
+mattermost_hubot_environment: {}
 mattermost_hubot_plugins:
   - hubot-diagnostics
   - hubot-help
