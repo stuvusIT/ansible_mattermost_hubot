@@ -12,12 +12,11 @@ galaxy_info:
     - name: Ubuntu
       versions:
         - xenial
-        - yakkety
-        - zesty
-        - artful
+        - bionic
     - name: Debian
       versions:
         - stretch
+        - buster
 
   galaxy_tags:
     - hubot
