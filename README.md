@@ -56,7 +56,7 @@ Per default following packages are installed:
     mattermost_hubot_mattermost_host: url.to.your.mattermost.instance.com
     mattermost_hubot_owner: your@mailaddress.com
     mattermost_hubot_environment:
-      - REDIS_URL: redis://:password@192.168.0.1:16379/prefix 
+      - REDIS_URL: redis://:password@192.168.0.1:16379/prefix
     mattermost_hubot_plugins:
       - hubot-diagnostics
       - hubot-help
